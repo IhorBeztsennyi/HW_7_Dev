@@ -6,9 +6,9 @@ public interface Repository<T> {
 
     void save(T t);
 
-    Optional<T> findById(Integer id);
+    T findById(Integer id);
 
     void remove(Integer id);
 
-    int update(Integer id, T t);
+    T update(T t);
 }

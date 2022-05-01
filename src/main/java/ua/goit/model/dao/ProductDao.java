@@ -58,4 +58,14 @@ public class ProductDao {
     public void setPromotionDao(PromotionDao promotionDao) {
         this.promotionDao = promotionDao;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDao{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", promotionDao=" + promotionDao +
+                '}';
+    }
 }

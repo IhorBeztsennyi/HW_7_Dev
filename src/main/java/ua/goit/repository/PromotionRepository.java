@@ -2,31 +2,42 @@ package ua.goit.repository;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.transform.Transformers;
 import ua.goit.config.DataBaseManager;
-import ua.goit.model.dao.ProductDao;
+import ua.goit.model.dao.PromotionDao;
 
-import java.util.List;
 import java.util.Optional;
 
-public class ProductRepository implements Repository<ProductDao> {
-
-    public static final String SELECT_BY_NAME = "FROM ProductDao pd where pd.name=:name";
+public class PromotionRepository implements Repository<PromotionDao> {
 
     private final DataBaseManager manager;
 
-    public ProductRepository(DataBaseManager manager) {
+    public PromotionRepository(DataBaseManager manager) {
         this.manager = manager;
     }
 
     @Override
-    public ProductDao findById(Integer id) {
+    public void save(PromotionDao promotionDao) {
         Transaction transaction = null;
         try (Session session = manager.getSession()) {
             transaction = session.beginTransaction();
-            ProductDao productDao = session.get(ProductDao.class, id);
+            session.merge(promotionDao);
             transaction.commit();
-            return productDao;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
+
+    @Override
+    public PromotionDao findById(Integer id) {
+        Transaction transaction = null;
+        try (Session session = manager.getSession()) {
+            transaction = session.beginTransaction();
+            PromotionDao promotionDao = session.get(PromotionDao.class, id);
+            transaction.commit();
+            return promotionDao;
         } catch (Exception ex) {
             ex.printStackTrace();
             if (transaction != null) {
@@ -36,28 +47,13 @@ public class ProductRepository implements Repository<ProductDao> {
         return null;
     }
 
-    @Override
-    public void save(ProductDao productDao) {
+    private Optional<PromotionDao> findByIdOptional(Integer id) {
         Transaction transaction = null;
         try (Session session = manager.getSession()) {
             transaction = session.beginTransaction();
-            session.merge(productDao);
+            PromotionDao promotionDao = session.get(PromotionDao.class, id);
             transaction.commit();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        }
-    }
-
-    private Optional<ProductDao> findByIdOptional(Integer id) {
-        Transaction transaction = null;
-        try (Session session = manager.getSession()) {
-            transaction = session.beginTransaction();
-            ProductDao productDao = session.get(ProductDao.class, id);
-            transaction.commit();
-            return Optional.ofNullable(productDao);
+            return Optional.ofNullable(promotionDao);
         } catch (Exception ex) {
             ex.printStackTrace();
             if (transaction != null) {
@@ -70,13 +66,13 @@ public class ProductRepository implements Repository<ProductDao> {
     @Override
     public void remove(Integer id) {
         Transaction transaction = null;
-        try (Session session = manager.getSession()) {
+        try (Session session = manager.getSession()){
             transaction = session.beginTransaction();
-            findByIdOptional(id).orElseThrow(() -> new IllegalArgumentException(String.format("Product with id %s not found", id)));
-            ProductDao productDao = session.get(ProductDao.class, id);
-            session.remove(productDao);
+            findByIdOptional(id).orElseThrow(() -> new IllegalArgumentException(String.format("Promotion with id %s not found", id)));
+            PromotionDao promotionDao = session.get(PromotionDao.class, id);
+            session.remove(promotionDao);
             transaction.commit();
-        } catch (Exception ex) {
+        }catch (Exception ex) {
             ex.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
@@ -85,16 +81,16 @@ public class ProductRepository implements Repository<ProductDao> {
     }
 
     @Override
-    public ProductDao update(ProductDao productDao) {
+    public PromotionDao update(PromotionDao promotionDao) {
         Transaction transaction = null;
-        try (Session session = manager.getSession()) {
+        try (Session session = manager.getSession()){
             transaction = session.beginTransaction();
-            Integer id = productDao.getId();
+            Integer id = promotionDao.getId();
             findByIdOptional(id).orElseThrow(() -> new IllegalArgumentException(String.format("Promotion with id %s not found", id)));
-            ProductDao updatedProductDao = session.merge(productDao);
+            PromotionDao updatedPromotionDao = session.merge(promotionDao);
             transaction.commit();
-            return updatedProductDao;
-        } catch (Exception ex) {
+            return updatedPromotionDao;
+        }catch (Exception ex) {
             ex.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
@@ -102,18 +98,4 @@ public class ProductRepository implements Repository<ProductDao> {
         }
         return null;
     }
-
-    public List<ProductDao> findByName(String name) {
-        try (Session session = manager.getSession()){
-            List<ProductDao> productDaos = session.createQuery(SELECT_BY_NAME)
-                    .setParameter("name", name)
-                    .setResultListTransformer(Transformers.aliasToBean(ProductDao.class))
-                    .list();
-            return productDaos;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
 }
