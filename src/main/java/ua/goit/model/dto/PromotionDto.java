@@ -14,6 +14,11 @@ public class PromotionDto {
         this.price = price;
     }
 
+    public PromotionDto(Integer amount, Double price) {
+        this.amount = amount;
+        this.price = price;
+    }
+
     public Integer getId() {
         return id;
     }

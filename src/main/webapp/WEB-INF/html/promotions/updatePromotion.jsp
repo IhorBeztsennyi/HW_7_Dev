@@ -8,7 +8,7 @@
     </head>
     <body>
         <c:import url="${contextPath}/WEB-INF/html/navibar.jsp"/>
-        <h3 class="container">Product was updated</h3>
-        <p class="container"><a href="/findAllProducts">List all products</a></p>
+        <h3 class="container">Promotion was updated</h3>
+        <p class="container"><a href="/findAllPromotions">List all promotions</a></p>
     </body>
 </html>

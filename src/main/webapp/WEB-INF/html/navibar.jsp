@@ -15,10 +15,10 @@
                   </li>
                   <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Promotions<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                      <li><a href="/findAllProjects">Find all</a></li>
-                      <li><a href="/saveNewProjectsForm">Save new</a></li>
-                      <li><a href="/deleteProjectsForm">Delete</a></li>
-                      <li><a href="/updateProjectsForm">Update</a></li>
+                      <li><a href="/findAllPromotions">All</a></li>
+                      <li><a href="/saveNewPromotionForm">New</a></li>
+                      <li><a href="/deletePromotionForm">Delete</a></li>
+                      <li><a href="/updatePromotionForm">Update</a></li>
                     </ul>
                   </li>
                 </ul>

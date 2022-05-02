@@ -2,14 +2,17 @@ package ua.goit.repository;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 import ua.goit.config.DataBaseManager;
 import ua.goit.model.dao.PromotionDao;
 
+import java.util.List;
 import java.util.Optional;
 
 public class PromotionRepository implements Repository<PromotionDao> {
 
     private final DataBaseManager manager;
+    public static final String SELECT_ALL = "FROM PromotionDao";
 
     public PromotionRepository(DataBaseManager manager) {
         this.manager = manager;
@@ -63,13 +66,13 @@ public class PromotionRepository implements Repository<PromotionDao> {
     @Override
     public void remove(Integer id) {
         Transaction transaction = null;
-        try (Session session = manager.getSession()){
+        try (Session session = manager.getSession()) {
             transaction = session.beginTransaction();
             findByIdOptional(id).orElseThrow(() -> new IllegalArgumentException(String.format("Promotion with id %s not found", id)));
             PromotionDao promotionDao = session.get(PromotionDao.class, id);
             session.remove(promotionDao);
             transaction.commit();
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
@@ -80,14 +83,14 @@ public class PromotionRepository implements Repository<PromotionDao> {
     @Override
     public PromotionDao update(PromotionDao promotionDao) {
         Transaction transaction = null;
-        try (Session session = manager.getSession()){
+        try (Session session = manager.getSession()) {
             transaction = session.beginTransaction();
             Integer id = promotionDao.getId();
             findByIdOptional(id).orElseThrow(() -> new IllegalArgumentException(String.format("Promotion with id %s not found", id)));
             PromotionDao updatedPromotionDao = session.merge(promotionDao);
             transaction.commit();
             return updatedPromotionDao;
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             if (transaction != null) {
                 transaction.rollback();
@@ -95,4 +98,17 @@ public class PromotionRepository implements Repository<PromotionDao> {
         }
         return null;
     }
+
+    public List<PromotionDao> findAll() {
+        try (Session session = manager.getSession()) {
+            List<PromotionDao> promotionDaos = session.createQuery(SELECT_ALL)
+                    .setResultListTransformer(Transformers.aliasToBean(PromotionDao.class))
+                    .list();
+            return promotionDaos;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
 }
