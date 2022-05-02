@@ -9,6 +9,19 @@ public class ProductDto {
     public ProductDto() {
     }
 
+    public ProductDto(Integer id, String name, Double price, PromotionDto promotionDto) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.promotionDto = promotionDto;
+    }
+
+    public ProductDto(String name, Double price, PromotionDto promotionDto) {
+        this.name = name;
+        this.price = price;
+        this.promotionDto = promotionDto;
+    }
+
     public Integer getId() {
         return id;
     }

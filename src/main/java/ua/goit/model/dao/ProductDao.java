@@ -49,7 +49,7 @@ public class ProductDao {
         this.price = price;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "promotion_id", nullable = false)
     public PromotionDao getPromotionDao() {
         return promotionDao;
@@ -59,13 +59,4 @@ public class ProductDao {
         this.promotionDao = promotionDao;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDao{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", promotionDao=" + promotionDao +
-                '}';
-    }
 }

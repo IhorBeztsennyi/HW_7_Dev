@@ -40,9 +40,6 @@ public class PromotionRepository implements Repository<PromotionDao> {
             return promotionDao;
         } catch (Exception ex) {
             ex.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
         return null;
     }

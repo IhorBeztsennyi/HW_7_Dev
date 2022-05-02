@@ -9,6 +9,7 @@ import ua.goit.model.dao.ProductDao;
 import ua.goit.model.dao.PromotionDao;
 import ua.goit.repository.ProductRepository;
 import ua.goit.repository.PromotionRepository;
+import ua.goit.repository.Repository;
 
 import java.util.List;
 
@@ -29,13 +30,17 @@ public class App {
 //        productDao.setPrice(1.77);
 //        productDao.setPromotionDao(promotionRepository.findById(2));
 //        List<ProductDao> foundProducts = productRepository.findByName("A");
+//        List<ProductDao> foundProducts = productRepository.findAll();
 //        ProductDao fondPr = foundProducts.get(0);
-//
+////
 //        System.out.println(foundProducts);
 //        System.out.println(fondPr);
-        Store store = new Store(productRepository);
-        String productSet = "ABCDABA";
-        System.out.println(store.getFinalPrice(productSet));
+
+        System.out.println(promotionRepository.findById(1));
+        PromotionDao promotionDao = promotionRepository.findById(1);
+//        Store store = new Store(productRepository);
+//        String productSet = "ABCDABA";
+//        System.out.println(store.getFinalPrice(productSet));
 
 
 

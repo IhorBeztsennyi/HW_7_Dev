@@ -10,6 +10,9 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.apache.tomcat:tomcat-servlet-api:9.0.62'
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation 'jstl:jstl:1.2'
     implementation 'org.postgresql:postgresql:42.3.4'
     implementation 'com.zaxxer:HikariCP:5.0.1'
     implementation 'org.hibernate:hibernate-core:6.0.0.Final'

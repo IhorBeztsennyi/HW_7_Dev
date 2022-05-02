@@ -12,6 +12,7 @@ import java.util.Optional;
 public class ProductRepository implements Repository<ProductDao> {
 
     public static final String SELECT_BY_NAME = "FROM ProductDao pd where pd.name=:name";
+    public static final String SELECT_ALL = "FROM ProductDao";
 
     private final DataBaseManager manager;
 
@@ -107,6 +108,17 @@ public class ProductRepository implements Repository<ProductDao> {
         try (Session session = manager.getSession()){
             List<ProductDao> productDaos = session.createQuery(SELECT_BY_NAME)
                     .setParameter("name", name)
+                    .setResultListTransformer(Transformers.aliasToBean(ProductDao.class))
+                    .list();
+            return productDaos;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    public List<ProductDao> findAll() {
+        try (Session session = manager.getSession()){
+            List<ProductDao> productDaos = session.createQuery(SELECT_ALL)
                     .setResultListTransformer(Transformers.aliasToBean(ProductDao.class))
                     .list();
             return productDaos;
