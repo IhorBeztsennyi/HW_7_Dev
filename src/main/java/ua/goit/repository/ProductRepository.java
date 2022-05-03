@@ -105,7 +105,7 @@ public class ProductRepository implements Repository<ProductDao> {
     }
 
     public List<ProductDao> findByName(String name) {
-        try (Session session = manager.getSession()){
+        try (Session session = manager.getSession()) {
             List<ProductDao> productDaos = session.createQuery(SELECT_BY_NAME)
                     .setParameter("name", name)
                     .setResultListTransformer(Transformers.aliasToBean(ProductDao.class))
@@ -116,8 +116,9 @@ public class ProductRepository implements Repository<ProductDao> {
         }
         return null;
     }
+
     public List<ProductDao> findAll() {
-        try (Session session = manager.getSession()){
+        try (Session session = manager.getSession()) {
             List<ProductDao> productDaos = session.createQuery(SELECT_ALL)
                     .setResultListTransformer(Transformers.aliasToBean(ProductDao.class))
                     .list();
@@ -127,5 +128,4 @@ public class ProductRepository implements Repository<ProductDao> {
         }
         return null;
     }
-
 }

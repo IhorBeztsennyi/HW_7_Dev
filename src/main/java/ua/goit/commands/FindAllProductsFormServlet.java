@@ -2,9 +2,7 @@ package ua.goit.commands;
 
 import ua.goit.config.DataBaseManager;
 import ua.goit.config.HibernateProvider;
-import ua.goit.model.Store;
 import ua.goit.model.converter.ProductConverter;
-import ua.goit.model.dao.ProductDao;
 import ua.goit.model.dto.ProductDto;
 import ua.goit.repository.ProductRepository;
 
@@ -21,7 +19,6 @@ import java.util.stream.Collectors;
 public class FindAllProductsFormServlet extends HttpServlet {
     private ProductRepository productRepository;
     private ProductConverter productConverter;
-
 
     @Override
     public void init() {

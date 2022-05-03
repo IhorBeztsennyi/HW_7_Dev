@@ -110,5 +110,4 @@ public class PromotionRepository implements Repository<PromotionDao> {
         }
         return null;
     }
-
 }

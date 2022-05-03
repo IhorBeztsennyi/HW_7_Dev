@@ -2,7 +2,6 @@ package ua.goit.commands;
 
 import ua.goit.config.DataBaseManager;
 import ua.goit.config.HibernateProvider;
-import ua.goit.model.Store;
 import ua.goit.model.converter.ProductConverter;
 import ua.goit.model.converter.PromotionConverter;
 import ua.goit.model.dao.ProductDao;

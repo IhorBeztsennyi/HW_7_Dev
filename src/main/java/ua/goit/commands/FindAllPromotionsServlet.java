@@ -2,11 +2,8 @@ package ua.goit.commands;
 
 import ua.goit.config.DataBaseManager;
 import ua.goit.config.HibernateProvider;
-import ua.goit.model.converter.ProductConverter;
 import ua.goit.model.converter.PromotionConverter;
-import ua.goit.model.dto.ProductDto;
 import ua.goit.model.dto.PromotionDto;
-import ua.goit.repository.ProductRepository;
 import ua.goit.repository.PromotionRepository;
 
 import javax.servlet.ServletException;
