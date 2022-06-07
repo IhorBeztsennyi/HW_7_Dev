@@ -22,7 +22,7 @@ public class ProductDao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "id")
     public Integer getId() {
         return id;
     }

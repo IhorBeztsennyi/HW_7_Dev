@@ -20,7 +20,7 @@ public class PromotionDao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "promotion_id")
+    @Column(name = "id")
     public Integer getId() {
         return id;
     }
